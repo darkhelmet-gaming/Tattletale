@@ -22,7 +22,7 @@ targetCompatibility = sourceCompatibility = JavaVersion.VERSION_17
 
 bukkit {
     name = 'tatteltail'
-    main = 'network.darkhelmet.tattletail.Tattletail'
+    main = 'network.darkhelmet.tattletale.Tattletale'
     apiVersion = '1.17'
     authors = ['viveleroi']
 }
@@ -43,12 +43,12 @@ jar {
 }
 
 shadowJar {
-    relocate 'net.kyori', 'network.darkhelmet.tattletail.kyori'
-    relocate 'org.spongepowered', 'network.darkhelmet.tattletail.spongepowered'
+    relocate 'net.kyori', 'network.darkhelmet.tattletale.kyori'
+    relocate 'org.spongepowered', 'network.darkhelmet.tattletale.spongepowered'
 
     // Transitive deps
-    relocate 'org.typesafe', 'network.darkhelmet.tattletail.typesafe'
-    relocate 'io.leangen', 'network.darkhelmet.tattletail.leangen'
+    relocate 'org.typesafe', 'network.darkhelmet.tattletale.typesafe'
+    relocate 'io.leangen', 'network.darkhelmet.tattletale.leangen'
 
     minimize()
 }

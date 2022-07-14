@@ -1,5 +1,5 @@
 /*
- * Tattletail
+ * Tattletale
  *
  * Copyright (c) 2022 M Botsko (viveleroi)
  *                    Contributors
@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package network.darkhelmet.tattletail.services.vein;
+package network.darkhelmet.tattletale.services.vein;
 
 import java.util.ArrayList;
 import java.util.List;

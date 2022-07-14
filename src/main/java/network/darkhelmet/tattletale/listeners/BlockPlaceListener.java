@@ -1,5 +1,5 @@
 /*
- * Tattletail
+ * Tattletale
  *
  * Copyright (c) 2022 M Botsko (viveleroi)
  *                    Contributors
@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package network.darkhelmet.tattletail.listeners;
+package network.darkhelmet.tattletale.listeners;
 
 import java.util.Locale;
 
@@ -28,56 +28,57 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
 
-import network.darkhelmet.tattletail.Tattletail;
-import network.darkhelmet.tattletail.services.configuration.MaterialConfiguration;
+import network.darkhelmet.tattletale.Tattletale;
+import network.darkhelmet.tattletale.services.configuration.MaterialConfiguration;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 
-public class PlayerBucketEmptyListener implements Listener {
+public class BlockPlaceListener implements Listener {
     /**
-     * On bucket empty.
+     * On block place.
      *
      * @param event The event
      */
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onBucketEmpty(final PlayerBucketEmptyEvent event) {
+    public void onBlockPlace(final BlockPlaceEvent event) {
         final Player player = event.getPlayer();
 
         // Ignore creative
-        if (Tattletail.getInstance().configuration().ignoreCreative()
+        if (Tattletale.getInstance().configuration().ignoreCreative()
                 && player.getGameMode().equals(GameMode.CREATIVE)) {
             return;
         }
 
         // Let players bypass
-        if (player.hasPermission("tattletail.bypass")) {
+        if (player.hasPermission("tattletale.bypass")) {
             return;
         }
 
-        // Get alert configuration
-        MaterialConfiguration materialConfiguration = Tattletail.getInstance()
-            .bucketEmptyAlerts().get(event.getBucket());
+        // Get block alert configuration
+        MaterialConfiguration materialConfiguration = Tattletale.getInstance()
+            .blockPlaceAlerts().get(event.getBlock().getType());
         if (materialConfiguration == null || !materialConfiguration.enabled()) {
             return;
         }
 
         TextColor color = TextColor.fromCSSHexString(materialConfiguration.hexColor());
-        String bucketName = event.getBucket().toString().replace("_", " ").toLowerCase(Locale.ENGLISH);
+        String blockName = event.getBlock().getType().toString().replace("_", " ")
+                .toLowerCase(Locale.ENGLISH).replace("glowing", " ");
 
         // Create alert message
         final TextComponent.Builder component = Component.text().color(color)
             .append(Component.text(player.getDisplayName()))
-            .append(Component.text(" emptied "))
-            .append(Component.text(bucketName))
+            .append(Component.text(" placed "))
+            .append(Component.text(blockName))
             .hoverEvent(
                 HoverEvent.hoverEvent(HoverEvent.Action.SHOW_ITEM,
-                    HoverEvent.ShowItem.of(Key.key(event.getBucket().getKey().toString()), 1)));
+                    HoverEvent.ShowItem.of(Key.key(event.getBlock().getType().getKey().toString()), 1)));
 
-        Tattletail.getInstance().alert(player, component.build());
+        Tattletale.getInstance().alert(player, component.build());
     }
 }

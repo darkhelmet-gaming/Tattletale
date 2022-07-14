@@ -1,4 +1,4 @@
-**Tattletail**
+**Tattletale**
 
 Alerts staff to player actions. A plugin for Spigot/Paper/etc servers, by viveleroi.
 
@@ -17,7 +17,7 @@ An extracted and improved version of Prism v3's alert system.
 
 ## Permissions
 
-- `tattletail.receivealerts` - Receive alerts.
-- `tattletail.bypass` - Do not alert for this player.
+- `tattletale.receivealerts` - Receive alerts.
+- `tattletale.bypass` - Do not alert for this player.
 
 [discord]: https://discord.gg/Q6sHDfnMAc

@@ -1,5 +1,5 @@
 /*
- * Tattletail
+ * Tattletale
  *
  * Copyright (c) 2022 M Botsko (viveleroi)
  *                    Contributors
@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package network.darkhelmet.tattletail.utils;
+package network.darkhelmet.tattletale.utils;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;

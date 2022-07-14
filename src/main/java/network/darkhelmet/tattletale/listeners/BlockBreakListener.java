@@ -1,5 +1,5 @@
 /*
- * Tattletail
+ * Tattletale
  *
  * Copyright (c) 2022 M Botsko (viveleroi)
  *                    Contributors
@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package network.darkhelmet.tattletail.listeners;
+package network.darkhelmet.tattletale.listeners;
 
 import java.util.List;
 import java.util.Locale;
@@ -29,10 +29,10 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
 
-import network.darkhelmet.tattletail.Tattletail;
-import network.darkhelmet.tattletail.services.configuration.BlockBreakConfiguration;
-import network.darkhelmet.tattletail.services.vein.VeinScanner;
-import network.darkhelmet.tattletail.utils.BlockUtils;
+import network.darkhelmet.tattletale.Tattletale;
+import network.darkhelmet.tattletale.services.configuration.BlockBreakConfiguration;
+import network.darkhelmet.tattletale.services.vein.VeinScanner;
+import network.darkhelmet.tattletale.utils.BlockUtils;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -55,23 +55,23 @@ public class BlockBreakListener implements Listener {
         final Player player = event.getPlayer();
 
         // Ignore creative
-        if (Tattletail.getInstance().configuration().ignoreCreative()
+        if (Tattletale.getInstance().configuration().ignoreCreative()
                 && player.getGameMode().equals(GameMode.CREATIVE)) {
             return;
         }
 
         // Let players bypass
-        if (player.hasPermission("tattletail.bypass")) {
+        if (player.hasPermission("tattletale.bypass")) {
             return;
         }
 
         // Ignore already-announced vein locations
-        if (Tattletail.getInstance().isInVein(event.getBlock().getLocation())) {
+        if (Tattletale.getInstance().isInVein(event.getBlock().getLocation())) {
             return;
         }
 
         // Get block alert configuration
-        BlockBreakConfiguration blockBreakConfiguration = Tattletail.getInstance()
+        BlockBreakConfiguration blockBreakConfiguration = Tattletale.getInstance()
             .blockBreakAlerts().get(event.getBlock().getType());
         if (blockBreakConfiguration == null || !blockBreakConfiguration.enabled()) {
             return;
@@ -90,7 +90,7 @@ public class BlockBreakListener implements Listener {
         List<Location> vein = veinScanner.scan();
 
         // Cache it
-        Tattletail.getInstance().cacheVein(vein);
+        Tattletale.getInstance().cacheVein(vein);
 
         TextColor color = TextColor.fromCSSHexString(blockBreakConfiguration.hexColor());
         String blockName = event.getBlock().getType().toString().replace("_", " ")
@@ -123,6 +123,6 @@ public class BlockBreakListener implements Listener {
             }
         }
 
-        Tattletail.getInstance().alert(player, component.build());
+        Tattletale.getInstance().alert(player, component.build());
     }
 }

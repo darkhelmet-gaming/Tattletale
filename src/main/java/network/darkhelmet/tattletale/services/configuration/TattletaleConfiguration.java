@@ -1,5 +1,5 @@
 /*
- * Tattletail
+ * Tattletale
  *
  * Copyright (c) 2022 M Botsko (viveleroi)
  *                    Contributors
@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package network.darkhelmet.tattletail.services.configuration;
+package network.darkhelmet.tattletale.services.configuration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +29,7 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 @ConfigSerializable
-public class TattletailConfiguration {
+public class TattletaleConfiguration {
     @Comment("Configure alerts for block break.")
     private final List<BlockBreakConfiguration> blockBreakAlerts = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public class TattletailConfiguration {
     /**
      * Constructor.
      */
-    public TattletailConfiguration() {
+    public TattletaleConfiguration() {
         blockBreakAlerts.add(new BlockBreakConfiguration(Arrays.asList(Material.ANCIENT_DEBRIS), "#aa00aa", 20));
 
         List<Material> copperOres = Arrays.asList(Material.COPPER_ORE, Material.DEEPSLATE_COPPER_ORE);

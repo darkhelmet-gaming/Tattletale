@@ -1,5 +1,5 @@
 /*
- * Tattletail
+ * Tattletale
  *
  * Copyright (c) 2022 M Botsko (viveleroi)
  *                    Contributors
@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package network.darkhelmet.tattletail.services.configuration;
+package network.darkhelmet.tattletale.services.configuration;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -37,7 +37,7 @@ public class ConfigurationService {
     /**
      * The primary plugin configuration.
      */
-    private TattletailConfiguration tattletailConfiguration;
+    private TattletaleConfiguration tattletaleConfiguration;
 
     /**
      * Construct the configuration service.
@@ -55,8 +55,8 @@ public class ConfigurationService {
      *
      * @return The prism configuration
      */
-    public TattletailConfiguration tattletailConfig() {
-        return tattletailConfiguration;
+    public TattletaleConfiguration tattletaleConfig() {
+        return tattletaleConfiguration;
     }
 
     /**
@@ -64,8 +64,8 @@ public class ConfigurationService {
      */
     public void loadConfigurations() {
         // Load the main config
-        File prismConfigFile = new File(dataPath.toFile(), "tattletail.conf");
-        tattletailConfiguration = getOrWriteConfiguration(TattletailConfiguration.class, prismConfigFile);
+        File prismConfigFile = new File(dataPath.toFile(), "tattletale.conf");
+        tattletaleConfiguration = getOrWriteConfiguration(TattletaleConfiguration.class, prismConfigFile);
     }
 
     /**

@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: 'Create a report to help us improve Tattletail '
+about: 'Create a report to help us improve Tattletale '
 title: "[BUG] "
 labels: ''
 assignees: ''
@@ -25,6 +25,6 @@ List the steps taken for this bug to occur. (Replace this text)
 Explain what should happen or just remove this section for java errors. (Replace this text)
 
 **Server (please complete the following information):**
-- Tattletail Version: X.X.X
+- Tattletale Version: X.X.X
 - Server Type: (Spigot, Paper, Purpur, etc)
 - Server/Minecraft Version: X.X.X

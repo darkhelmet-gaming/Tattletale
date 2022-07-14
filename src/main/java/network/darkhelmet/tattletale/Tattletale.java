@@ -1,5 +1,5 @@
 /*
- * Tattletail
+ * Tattletale
  *
  * Copyright (c) 2022 M Botsko (viveleroi)
  *                    Contributors
@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package network.darkhelmet.tattletail;
+package network.darkhelmet.tattletale;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -29,14 +29,14 @@ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
-import network.darkhelmet.tattletail.listeners.BlockBreakListener;
-import network.darkhelmet.tattletail.listeners.BlockIgniteListener;
-import network.darkhelmet.tattletail.listeners.BlockPlaceListener;
-import network.darkhelmet.tattletail.listeners.PlayerBucketEmptyListener;
-import network.darkhelmet.tattletail.services.configuration.BlockBreakConfiguration;
-import network.darkhelmet.tattletail.services.configuration.ConfigurationService;
-import network.darkhelmet.tattletail.services.configuration.MaterialConfiguration;
-import network.darkhelmet.tattletail.services.configuration.TattletailConfiguration;
+import network.darkhelmet.tattletale.listeners.BlockBreakListener;
+import network.darkhelmet.tattletale.listeners.BlockIgniteListener;
+import network.darkhelmet.tattletale.listeners.BlockPlaceListener;
+import network.darkhelmet.tattletale.listeners.PlayerBucketEmptyListener;
+import network.darkhelmet.tattletale.services.configuration.BlockBreakConfiguration;
+import network.darkhelmet.tattletale.services.configuration.ConfigurationService;
+import network.darkhelmet.tattletale.services.configuration.MaterialConfiguration;
+import network.darkhelmet.tattletale.services.configuration.TattletaleConfiguration;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,16 +45,16 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Tattletail extends JavaPlugin {
+public class Tattletale extends JavaPlugin {
     /**
      * Cache static instance.
      */
-    private static Tattletail instance;
+    private static Tattletale instance;
 
     /**
      * The logger.
      */
-    private static final Logger logger = LogManager.getLogger("Tattletail");
+    private static final Logger logger = LogManager.getLogger("Tattletale");
 
     /**
      * The configuration service.
@@ -91,14 +91,14 @@ public class Tattletail extends JavaPlugin {
      *
      * @return The plugin instance
      */
-    public static Tattletail getInstance() {
+    public static Tattletale getInstance() {
         return instance;
     }
 
     /**
      * Constructor.
      */
-    public Tattletail() {
+    public Tattletale() {
         instance = this;
     }
 
@@ -118,7 +118,7 @@ public class Tattletail extends JavaPlugin {
 
         // Cache block break alerts by material
         for (BlockBreakConfiguration blockBreakConfiguration :
-                configurationService.tattletailConfig().blockBreakAlerts()) {
+                configurationService.tattletaleConfig().blockBreakAlerts()) {
             for (Material material : blockBreakConfiguration.materials()) {
                 blockBreakAlerts.put(material, blockBreakConfiguration);
             }
@@ -126,7 +126,7 @@ public class Tattletail extends JavaPlugin {
 
         // Cache block place alerts by material
         for (MaterialConfiguration materialConfiguration :
-                configurationService.tattletailConfig().blockPlaceAlerts()) {
+                configurationService.tattletaleConfig().blockPlaceAlerts()) {
             for (Material material : materialConfiguration.materials()) {
                 blockPlaceAlerts.put(material, materialConfiguration);
             }
@@ -134,7 +134,7 @@ public class Tattletail extends JavaPlugin {
 
         // Cache bucket empty alerts by material
         for (MaterialConfiguration materialConfiguration :
-                configurationService.tattletailConfig().bucketEmptyAlerts()) {
+                configurationService.tattletaleConfig().bucketEmptyAlerts()) {
             for (Material material : materialConfiguration.materials()) {
                 bucketEmptyAlerts.put(material, materialConfiguration);
             }
@@ -166,7 +166,7 @@ public class Tattletail extends JavaPlugin {
      */
     public void alert(Player cause, Component message) {
         adventure.filter(sender -> {
-            if (!sender.hasPermission("tattletail.receivealerts")) {
+            if (!sender.hasPermission("tattletale.receivealerts")) {
                 return false;
             }
 
@@ -210,8 +210,8 @@ public class Tattletail extends JavaPlugin {
      *
      * @return The configs
      */
-    public TattletailConfiguration configuration() {
-        return configurationService.tattletailConfig();
+    public TattletaleConfiguration configuration() {
+        return configurationService.tattletaleConfig();
     }
 
     /**

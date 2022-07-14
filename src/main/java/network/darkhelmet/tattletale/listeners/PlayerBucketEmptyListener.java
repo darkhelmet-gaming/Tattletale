@@ -1,5 +1,5 @@
 /*
- * Tattletail
+ * Tattletale
  *
  * Copyright (c) 2022 M Botsko (viveleroi)
  *                    Contributors
@@ -18,7 +18,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package network.darkhelmet.tattletail.listeners;
+package network.darkhelmet.tattletale.listeners;
+
+import java.util.Locale;
 
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -26,55 +28,56 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
 
-import network.darkhelmet.tattletail.Tattletail;
-import network.darkhelmet.tattletail.services.configuration.AlertConfiguration;
+import network.darkhelmet.tattletale.Tattletale;
+import network.darkhelmet.tattletale.services.configuration.MaterialConfiguration;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockIgniteEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
 
-public class BlockIgniteListener implements Listener {
+public class PlayerBucketEmptyListener implements Listener {
     /**
-     * On block break.
+     * On bucket empty.
      *
      * @param event The event
      */
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onBlockIgnite(final BlockIgniteEvent event) {
+    public void onBucketEmpty(final PlayerBucketEmptyEvent event) {
         final Player player = event.getPlayer();
-        if (player == null) {
-            return;
-        }
 
         // Ignore creative
-        if (Tattletail.getInstance().configuration().ignoreCreative()
+        if (Tattletale.getInstance().configuration().ignoreCreative()
                 && player.getGameMode().equals(GameMode.CREATIVE)) {
             return;
         }
 
         // Let players bypass
-        if (player.hasPermission("tattletail.bypass")) {
+        if (player.hasPermission("tattletale.bypass")) {
             return;
         }
 
-        AlertConfiguration alertConfiguration = Tattletail.getInstance().configuration().lighterUseAlert();
-        if (!alertConfiguration.enabled()) {
+        // Get alert configuration
+        MaterialConfiguration materialConfiguration = Tattletale.getInstance()
+            .bucketEmptyAlerts().get(event.getBucket());
+        if (materialConfiguration == null || !materialConfiguration.enabled()) {
             return;
         }
 
-        TextColor color = TextColor.fromCSSHexString(alertConfiguration.hexColor());
+        TextColor color = TextColor.fromCSSHexString(materialConfiguration.hexColor());
+        String bucketName = event.getBucket().toString().replace("_", " ").toLowerCase(Locale.ENGLISH);
 
         // Create alert message
         final TextComponent.Builder component = Component.text().color(color)
             .append(Component.text(player.getDisplayName()))
-            .append(Component.text(" used a lighter"))
+            .append(Component.text(" emptied "))
+            .append(Component.text(bucketName))
             .hoverEvent(
                 HoverEvent.hoverEvent(HoverEvent.Action.SHOW_ITEM,
-                    HoverEvent.ShowItem.of(Key.key(event.getBlock().getType().getKey().toString()), 1)));
+                    HoverEvent.ShowItem.of(Key.key(event.getBucket().getKey().toString()), 1)));
 
-        Tattletail.getInstance().alert(player, component.build());
+        Tattletale.getInstance().alert(player, component.build());
     }
 }
