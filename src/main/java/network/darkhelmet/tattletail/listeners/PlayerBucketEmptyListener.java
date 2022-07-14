@@ -49,7 +49,13 @@ public class PlayerBucketEmptyListener implements Listener {
         final Player player = event.getPlayer();
 
         // Ignore creative
-        if (player.getGameMode().equals(GameMode.CREATIVE)) {
+        if (Tattletail.getInstance().configuration().ignoreCreative()
+                && player.getGameMode().equals(GameMode.CREATIVE)) {
+            return;
+        }
+
+        // Let players bypass
+        if (player.hasPermission("tattletail.bypass")) {
             return;
         }
 

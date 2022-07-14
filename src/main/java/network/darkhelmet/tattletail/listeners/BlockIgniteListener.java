@@ -50,7 +50,13 @@ public class BlockIgniteListener implements Listener {
         }
 
         // Ignore creative
-        if (player.getGameMode().equals(GameMode.CREATIVE)) {
+        if (Tattletail.getInstance().configuration().ignoreCreative()
+                && player.getGameMode().equals(GameMode.CREATIVE)) {
+            return;
+        }
+
+        // Let players bypass
+        if (player.hasPermission("tattletail.bypass")) {
             return;
         }
 

@@ -14,5 +14,6 @@ Based on the alerts from Prism v3.
 ## Permissions
 
 - `tattletail.receivealerts` - Receive alerts.
+- `tattletail.bypass` - Do not alert for this player.
 
 [discord]: https://discord.gg/Q6sHDfnMAc

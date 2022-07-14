@@ -42,6 +42,9 @@ public class TattletailConfiguration {
     @Comment("Enable plugin debug mode. Produces extra logging to help diagnose issues.")
     private boolean debug = false;
 
+    @Comment("Do not alert for players in creative.")
+    private boolean ignoreCreative = true;
+
     @Comment("Alert on lighter use.")
     private AlertConfiguration lighterUseAlert = new AlertConfiguration("#cfcfcf");
 
@@ -101,6 +104,15 @@ public class TattletailConfiguration {
      */
     public List<MaterialConfiguration> bucketEmptyAlerts() {
         return bucketEmptyAlerts;
+    }
+
+    /**
+     * Whether to ignore creative gamemodes.
+     *
+     * @return True if ignoring creative
+     */
+    public boolean ignoreCreative() {
+        return ignoreCreative;
     }
 
     /**
