@@ -56,7 +56,7 @@ public class PlayerBucketEmptyListener implements Listener {
         // Get alert configuration
         MaterialConfiguration materialConfiguration = Tattletail.getInstance()
             .bucketEmptyAlerts().get(event.getBucket());
-        if (materialConfiguration == null) {
+        if (materialConfiguration == null || !materialConfiguration.enabled()) {
             return;
         }
 

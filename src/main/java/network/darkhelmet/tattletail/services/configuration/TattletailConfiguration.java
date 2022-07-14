@@ -42,6 +42,9 @@ public class TattletailConfiguration {
     @Comment("Enable plugin debug mode. Produces extra logging to help diagnose issues.")
     private boolean debug = false;
 
+    @Comment("Alert on lighter use.")
+    private AlertConfiguration lighterUseAlert = new AlertConfiguration("#cfcfcf");
+
     /**
      * Constructor.
      */
@@ -98,6 +101,15 @@ public class TattletailConfiguration {
      */
     public List<MaterialConfiguration> bucketEmptyAlerts() {
         return bucketEmptyAlerts;
+    }
+
+    /**
+     * Get the lighter use alert config.
+     *
+     * @return The lighter use alert config.
+     */
+    public AlertConfiguration lighterUseAlert() {
+        return lighterUseAlert;
     }
 
     /**

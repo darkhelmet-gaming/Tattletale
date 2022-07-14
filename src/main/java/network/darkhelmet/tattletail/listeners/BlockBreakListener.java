@@ -67,7 +67,7 @@ public class BlockBreakListener implements Listener {
         // Get block alert configuration
         BlockBreakConfiguration blockBreakConfiguration = Tattletail.getInstance()
             .blockBreakAlerts().get(event.getBlock().getType());
-        if (blockBreakConfiguration == null) {
+        if (blockBreakConfiguration == null || !blockBreakConfiguration.enabled()) {
             return;
         }
 

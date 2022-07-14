@@ -20,43 +20,46 @@
 
 package network.darkhelmet.tattletail.services.configuration;
 
-import java.util.List;
-
-import org.bukkit.Material;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 @ConfigSerializable
-public class MaterialConfiguration extends AlertConfiguration {
+public class AlertConfiguration {
+    @Comment("Enable or disable this alert.")
+    private boolean enabled = true;
+
     @Comment("The CSS hex color to use for the alert message.")
     private String hexColor;
-
-    @Comment("The materials, choices listed here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html")
-    private List<Material> materials;
 
     /**
      * Empty constructor for serializer.
      */
-    public MaterialConfiguration() {}
+    public AlertConfiguration() {}
 
     /**
      * Constructor.
      *
-     * @param materials The materials
      * @param hexColor The hex color
      */
-    public MaterialConfiguration(List<Material> materials, String hexColor) {
-        super(hexColor);
-
-        this.materials = materials;
+    public AlertConfiguration(String hexColor) {
+        this.hexColor = hexColor;
     }
 
     /**
-     * Get the materials.
+     * Get the enabled state.
      *
-     * @return The materials
+     * @return The enabled state
      */
-    public List<Material> materials() {
-        return materials;
+    public boolean enabled() {
+        return enabled;
+    }
+
+    /**
+     * Get the hex color.
+     *
+     * @return The hex color
+     */
+    public String hexColor() {
+        return hexColor;
     }
 }

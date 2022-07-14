@@ -28,11 +28,13 @@ import java.util.Map;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
 import network.darkhelmet.tattletail.listeners.BlockBreakListener;
+import network.darkhelmet.tattletail.listeners.BlockIgniteListener;
 import network.darkhelmet.tattletail.listeners.BlockPlaceListener;
 import network.darkhelmet.tattletail.listeners.PlayerBucketEmptyListener;
 import network.darkhelmet.tattletail.services.configuration.BlockBreakConfiguration;
 import network.darkhelmet.tattletail.services.configuration.ConfigurationService;
 import network.darkhelmet.tattletail.services.configuration.MaterialConfiguration;
+import network.darkhelmet.tattletail.services.configuration.TattletailConfiguration;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -127,9 +129,18 @@ public class Tattletail extends JavaPlugin {
             }
         }
 
+        // Cache bucket empty alerts by material
+        for (MaterialConfiguration materialConfiguration :
+                configurationService.tattletailConfig().bucketEmptyAlerts()) {
+            for (Material material : materialConfiguration.materials()) {
+                bucketEmptyAlerts.put(material, materialConfiguration);
+            }
+        }
+
         if (isEnabled()) {
             // Register listeners
             getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
+            getServer().getPluginManager().registerEvents(new BlockIgniteListener(), this);
             getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
             getServer().getPluginManager().registerEvents(new PlayerBucketEmptyListener(), this);
         }
@@ -169,6 +180,15 @@ public class Tattletail extends JavaPlugin {
      */
     public Map<Material, MaterialConfiguration> bucketEmptyAlerts() {
         return bucketEmptyAlerts;
+    }
+
+    /**
+     * Get the configuration.
+     *
+     * @return The configs
+     */
+    public TattletailConfiguration configuration() {
+        return configurationService.tattletailConfig();
     }
 
     /**
