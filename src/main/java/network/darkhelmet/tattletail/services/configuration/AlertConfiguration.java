@@ -26,7 +26,7 @@ import org.spongepowered.configurate.objectmapping.meta.Comment;
 @ConfigSerializable
 public class AlertConfiguration {
     @Comment("Enable or disable this alert.")
-    private boolean enabled = true;
+    private final boolean enabled = true;
 
     @Comment("The CSS hex color to use for the alert message.")
     private String hexColor;

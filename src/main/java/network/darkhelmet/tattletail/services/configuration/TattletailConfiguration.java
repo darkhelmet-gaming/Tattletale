@@ -31,25 +31,25 @@ import org.spongepowered.configurate.objectmapping.meta.Comment;
 @ConfigSerializable
 public class TattletailConfiguration {
     @Comment("Configure alerts for block break.")
-    private List<BlockBreakConfiguration> blockBreakAlerts = new ArrayList<>();
+    private final List<BlockBreakConfiguration> blockBreakAlerts = new ArrayList<>();
 
     @Comment("Configure alerts for block placement.")
-    private List<MaterialConfiguration> blockPlaceAlerts = new ArrayList<>();
+    private final List<MaterialConfiguration> blockPlaceAlerts = new ArrayList<>();
 
     @Comment("Configure alerts for emptying buckets.")
-    private List<MaterialConfiguration> bucketEmptyAlerts = new ArrayList<>();
+    private final List<MaterialConfiguration> bucketEmptyAlerts = new ArrayList<>();
 
     @Comment("Do not alert for players in creative.")
-    private boolean ignoreCreative = true;
+    private final boolean ignoreCreative = true;
 
     @Comment("Hide alerts from a player if they both trigger and receive alerts.")
-    private boolean ignoreSelf = false;
+    private final boolean ignoreSelf = false;
 
     @Comment("Alert on lighter use.")
-    private AlertConfiguration lighterUseAlert = new AlertConfiguration("#cfcfcf");
+    private final AlertConfiguration lighterUseAlert = new AlertConfiguration("#cfcfcf");
 
     @Comment("Toggle printing alerts to server logs. (in addition to in-game)")
-    private boolean logAlerts = false;
+    private final boolean logAlerts = false;
 
     /**
      * Constructor.

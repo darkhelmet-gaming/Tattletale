@@ -2,14 +2,18 @@
 
 Alerts staff to player actions. A plugin for Spigot/Paper/etc servers, by viveleroi.
 
-Based on the alerts from Prism v3.
+An extracted and improved version of Prism v3's alert system.
 
 [Discord](discord)
 
 ## Features
 
-- Default configuration for ore alerts including light levels and night vision potion use.
-- Configure alerts for any broken blocks.
+- Highly configurable.
+- Configure alerts for any broken blocks (default alerts for ores, including light level and night vision use).
+- Configure alerts for any placed blocks (default alerts for tnt, bedrock).
+- Alerts for lighter use.
+- Alerts for bucket emptying (default alert for lava buckets).
+- Optional alert logging.
 
 ## Permissions
 

@@ -29,16 +29,16 @@ import org.spongepowered.configurate.objectmapping.meta.Comment;
 @ConfigSerializable
 public class BlockBreakConfiguration extends MaterialConfiguration {
     @Comment("Whether to indicate if users have night vision.")
-    private boolean includeNightVision = true;
+    private final boolean includeNightVision = true;
 
     @Comment("Set the maximum light level that triggers the alert.")
-    private int maxLightLevel = 100;
+    private final int maxLightLevel = 100;
 
     @Comment("Limit how many neighboring blocks are scanned.")
     private int maxScanCount;
 
     @Comment("Set the minimum light level that triggers the alert.")
-    private int minLightLevel = 0;
+    private final int minLightLevel = 0;
 
     /**
      * Empty constructor for serializer.

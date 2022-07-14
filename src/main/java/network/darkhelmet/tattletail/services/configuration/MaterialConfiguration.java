@@ -28,9 +28,6 @@ import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 @ConfigSerializable
 public class MaterialConfiguration extends AlertConfiguration {
-    @Comment("The CSS hex color to use for the alert message.")
-    private String hexColor;
-
     @Comment("The materials, choices listed here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html")
     private List<Material> materials;
 
