@@ -51,6 +51,9 @@ public class TattletailConfiguration {
     @Comment("Alert on lighter use.")
     private AlertConfiguration lighterUseAlert = new AlertConfiguration("#cfcfcf");
 
+    @Comment("Toggle printing alerts to server logs. (in addition to in-game)")
+    private boolean logAlerts = false;
+
     /**
      * Constructor.
      */
@@ -110,6 +113,15 @@ public class TattletailConfiguration {
     }
 
     /**
+     * Get the debug setting.
+     *
+     * @return True if debug enabled.
+     */
+    public boolean debug() {
+        return debug;
+    }
+
+    /**
      * Whether to ignore creative gamemodes.
      *
      * @return True if ignoring creative
@@ -137,11 +149,11 @@ public class TattletailConfiguration {
     }
 
     /**
-     * Get the debug setting.
+     * Whether to log alerts.
      *
-     * @return True if debug enabled.
+     * @return True if alerts should be logged
      */
-    public boolean debug() {
-        return debug;
+    public boolean logAlerts() {
+        return logAlerts;
     }
 }

@@ -26,8 +26,9 @@ import java.util.List;
 import java.util.Map;
 
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+
 import network.darkhelmet.tattletail.listeners.BlockBreakListener;
 import network.darkhelmet.tattletail.listeners.BlockIgniteListener;
 import network.darkhelmet.tattletail.listeners.BlockPlaceListener;
@@ -171,6 +172,10 @@ public class Tattletail extends JavaPlugin {
 
             return configuration().ignoreSelf() || !sender.equals(cause);
         }).sendMessage(message);
+
+        if (configuration().logAlerts()) {
+            logger.info(PlainTextComponentSerializer.plainText().serialize(message));
+        }
     }
 
     /**
