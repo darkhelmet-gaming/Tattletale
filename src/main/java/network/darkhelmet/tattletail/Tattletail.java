@@ -27,6 +27,7 @@ import java.util.Map;
 
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
+import net.kyori.adventure.text.Component;
 import network.darkhelmet.tattletail.listeners.BlockBreakListener;
 import network.darkhelmet.tattletail.listeners.BlockIgniteListener;
 import network.darkhelmet.tattletail.listeners.BlockPlaceListener;
@@ -40,6 +41,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Tattletail extends JavaPlugin {
@@ -153,6 +155,22 @@ public class Tattletail extends JavaPlugin {
      */
     public BukkitAudiences adventure() {
         return adventure;
+    }
+
+    /**
+     * Send an alert to appropriate players.
+     *
+     * @param cause The causing player
+     * @param message The message
+     */
+    public void alert(Player cause, Component message) {
+        adventure.filter(sender -> {
+            if (!sender.hasPermission("tattletail.receivealerts")) {
+                return false;
+            }
+
+            return configuration().ignoreSelf() || !sender.equals(cause);
+        }).sendMessage(message);
     }
 
     /**

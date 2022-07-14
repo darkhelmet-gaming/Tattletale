@@ -45,6 +45,9 @@ public class TattletailConfiguration {
     @Comment("Do not alert for players in creative.")
     private boolean ignoreCreative = true;
 
+    @Comment("Hide alerts from a player if they both trigger and receive alerts.")
+    private boolean ignoreSelf = false;
+
     @Comment("Alert on lighter use.")
     private AlertConfiguration lighterUseAlert = new AlertConfiguration("#cfcfcf");
 
@@ -113,6 +116,15 @@ public class TattletailConfiguration {
      */
     public boolean ignoreCreative() {
         return ignoreCreative;
+    }
+
+    /**
+     * Whether to hide alerts for yourself.
+     *
+     * @return True if hiding alerts for yourself
+     */
+    public boolean ignoreSelf() {
+        return ignoreSelf;
     }
 
     /**

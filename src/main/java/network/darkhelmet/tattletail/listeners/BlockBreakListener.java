@@ -123,7 +123,6 @@ public class BlockBreakListener implements Listener {
             }
         }
 
-        Tattletail.getInstance().adventure()
-            .filter(sender -> sender.hasPermission("tattletail.receivealerts")).sendMessage(component.build());
+        Tattletail.getInstance().alert(player, component.build());
     }
 }

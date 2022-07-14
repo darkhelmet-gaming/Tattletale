@@ -79,7 +79,6 @@ public class BlockPlaceListener implements Listener {
                 HoverEvent.hoverEvent(HoverEvent.Action.SHOW_ITEM,
                     HoverEvent.ShowItem.of(Key.key(event.getBlock().getType().getKey().toString()), 1)));
 
-        Tattletail.getInstance().adventure()
-            .filter(sender -> sender.hasPermission("tattletail.receivealerts")).sendMessage(component.build());
+        Tattletail.getInstance().alert(player, component.build());
     }
 }
