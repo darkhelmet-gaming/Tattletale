@@ -30,7 +30,7 @@ import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
 
 import network.darkhelmet.tattletail.Tattletail;
-import network.darkhelmet.tattletail.services.configuration.BlockConfiguration;
+import network.darkhelmet.tattletail.services.configuration.BlockBreakConfiguration;
 import network.darkhelmet.tattletail.services.vein.VeinScanner;
 import network.darkhelmet.tattletail.utils.BlockUtils;
 
@@ -65,30 +65,31 @@ public class BlockBreakListener implements Listener {
         }
 
         // Get block alert configuration
-        BlockConfiguration blockConfiguration = Tattletail.getInstance()
-            .blockBrokenAlerts().get(event.getBlock().getType());
-        if (blockConfiguration == null) {
+        BlockBreakConfiguration blockBreakConfiguration = Tattletail.getInstance()
+            .blockBreakAlerts().get(event.getBlock().getType());
+        if (blockBreakConfiguration == null) {
             return;
         }
 
         // Apply light level bounds
         int lightLevel = BlockUtils.getLightLevel(event.getBlock());
-        if (lightLevel < blockConfiguration.minLightLevel() || lightLevel > blockConfiguration.maxLightLevel()) {
+        if (lightLevel < blockBreakConfiguration.minLightLevel()
+                || lightLevel > blockBreakConfiguration.maxLightLevel()) {
             return;
         }
 
         // Scan for the vein
         VeinScanner veinScanner = new VeinScanner(
-            event.getBlock(), blockConfiguration.materials(), blockConfiguration.maxScanCount());
+            event.getBlock(), blockBreakConfiguration.materials(), blockBreakConfiguration.maxScanCount());
         List<Location> vein = veinScanner.scan();
 
         // Cache it
         Tattletail.getInstance().cacheVein(vein);
 
-        TextColor color = TextColor.fromCSSHexString(blockConfiguration.hexColor());
+        TextColor color = TextColor.fromCSSHexString(blockBreakConfiguration.hexColor());
         String blockName = event.getBlock().getType().toString().replace("_", " ")
             .toLowerCase(Locale.ENGLISH).replace("glowing", " ");
-        final String count = vein.size() + (vein.size() >= blockConfiguration.maxScanCount() ? "+" : "");
+        final String count = vein.size() + (vein.size() >= blockBreakConfiguration.maxScanCount() ? "+" : "");
 
         // Create alert message
         final TextComponent.Builder component = Component.text().color(color)
@@ -101,7 +102,7 @@ public class BlockBreakListener implements Listener {
                 HoverEvent.hoverEvent(HoverEvent.Action.SHOW_ITEM,
                     HoverEvent.ShowItem.of(Key.key(event.getBlock().getType().getKey().toString()), 1)));
 
-        if (blockConfiguration.includeNightVision()) {
+        if (blockBreakConfiguration.includeNightVision()) {
             boolean usingNightVision = false;
             for (PotionEffect effect : player.getActivePotionEffects()) {
                 usingNightVision = effect.getType().equals(PotionEffectType.NIGHT_VISION);

@@ -44,7 +44,10 @@ jar {
 shadowJar {
     relocate 'net.kyori', 'network.darkhelmet.tattletail.kyori'
     relocate 'org.spongepowered', 'network.darkhelmet.tattletail.spongepowered'
-    relocate 'dev.triumphteam', 'network.darkhelmet.tattletail.triumphteam'
+
+    // Transitive deps
+    relocate 'org.typesafe', 'network.darkhelmet.tattletail.typesafe'
+    relocate 'io.leangen', 'network.darkhelmet.tattletail.leangen'
 
     minimize()
 }

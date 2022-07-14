@@ -30,8 +30,11 @@ import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 @ConfigSerializable
 public class TattletailConfiguration {
-    @Comment("All blocks to alert for when they're broken.")
-    private List<BlockConfiguration> blockBreakAlerts = new ArrayList<>();
+    @Comment("Configure alerts for block break.")
+    private List<BlockBreakConfiguration> blockBreakAlerts = new ArrayList<>();
+
+    @Comment("Configure alerts for block placement.")
+    private List<BlockPlaceConfiguration> blockPlaceAlerts = new ArrayList<>();
 
     @Comment("Enable plugin debug mode. Produces extra logging to help diagnose issues.")
     private boolean debug = false;
@@ -40,27 +43,29 @@ public class TattletailConfiguration {
      * Constructor.
      */
     public TattletailConfiguration() {
-        blockBreakAlerts.add(new BlockConfiguration(Arrays.asList(Material.ANCIENT_DEBRIS), "#aa00aa", 20));
+        blockBreakAlerts.add(new BlockBreakConfiguration(Arrays.asList(Material.ANCIENT_DEBRIS), "#aa00aa", 20));
 
         List<Material> copperOres = Arrays.asList(Material.COPPER_ORE, Material.DEEPSLATE_COPPER_ORE);
-        blockBreakAlerts.add(new BlockConfiguration(copperOres, "#c1765a", 150));
+        blockBreakAlerts.add(new BlockBreakConfiguration(copperOres, "#c1765a", 150));
 
         List<Material> diamondOres = Arrays.asList(Material.DIAMOND_ORE, Material.DEEPSLATE_DIAMOND_ORE);
-        blockBreakAlerts.add(new BlockConfiguration(diamondOres, "#04babd", 20));
+        blockBreakAlerts.add(new BlockBreakConfiguration(diamondOres, "#04babd", 20));
 
         List<Material> emeraldOres = Arrays.asList(Material.EMERALD_ORE, Material.DEEPSLATE_EMERALD_ORE);
-        blockBreakAlerts.add(new BlockConfiguration(emeraldOres, "#21bf60", 20));
+        blockBreakAlerts.add(new BlockBreakConfiguration(emeraldOres, "#21bf60", 20));
 
         List<Material> goldOres = Arrays.asList(Material.GOLD_ORE, Material.DEEPSLATE_GOLD_ORE);
-        blockBreakAlerts.add(new BlockConfiguration(goldOres, "#ffe17d", 20));
+        blockBreakAlerts.add(new BlockBreakConfiguration(goldOres, "#ffe17d", 20));
 
         List<Material> ironOres = Arrays.asList(Material.IRON_ORE, Material.DEEPSLATE_IRON_ORE);
-        blockBreakAlerts.add(new BlockConfiguration(ironOres, "#d6d6d6", 150));
+        blockBreakAlerts.add(new BlockBreakConfiguration(ironOres, "#d6d6d6", 150));
 
         List<Material> lapisOres = Arrays.asList(Material.LAPIS_ORE, Material.DEEPSLATE_LAPIS_ORE);
-        blockBreakAlerts.add(new BlockConfiguration(lapisOres, "#0670cc", 20));
+        blockBreakAlerts.add(new BlockBreakConfiguration(lapisOres, "#0670cc", 20));
 
-        blockBreakAlerts.add(new BlockConfiguration(Arrays.asList(Material.NETHER_GOLD_ORE), "#ff7308", 20));
+        blockBreakAlerts.add(new BlockBreakConfiguration(Arrays.asList(Material.NETHER_GOLD_ORE), "#ff7308", 20));
+
+        blockPlaceAlerts.add(new BlockPlaceConfiguration(Arrays.asList(Material.TNT), "#ffffff"));
     }
 
     /**
@@ -68,8 +73,17 @@ public class TattletailConfiguration {
      *
      * @return The block break alerts
      */
-    public List<BlockConfiguration> blockBreakAlerts() {
+    public List<BlockBreakConfiguration> blockBreakAlerts() {
         return blockBreakAlerts;
+    }
+
+    /**
+     * Get the block place alerts.
+     *
+     * @return The block place alerts
+     */
+    public List<BlockPlaceConfiguration> blockPlaceAlerts() {
+        return blockPlaceAlerts;
     }
 
     /**

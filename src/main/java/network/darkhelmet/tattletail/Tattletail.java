@@ -28,7 +28,9 @@ import java.util.Map;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
 import network.darkhelmet.tattletail.listeners.BlockBreakListener;
-import network.darkhelmet.tattletail.services.configuration.BlockConfiguration;
+import network.darkhelmet.tattletail.listeners.BlockPlaceListener;
+import network.darkhelmet.tattletail.services.configuration.BlockBreakConfiguration;
+import network.darkhelmet.tattletail.services.configuration.BlockPlaceConfiguration;
 import network.darkhelmet.tattletail.services.configuration.ConfigurationService;
 
 import org.apache.logging.log4j.LogManager;
@@ -59,9 +61,14 @@ public class Tattletail extends JavaPlugin {
     private BukkitAudiences adventure;
 
     /**
-     * Cache block alert configs by material.
+     * Cache block break alert configs by material.
      */
-    private final Map<Material, BlockConfiguration> blockBrokenAlerts = new HashMap<>();
+    private final Map<Material, BlockBreakConfiguration> blockBreakAlerts = new HashMap<>();
+
+    /**
+     * Cache block place alert configs by material.
+     */
+    private final Map<Material, BlockPlaceConfiguration> blockPlaceAlerts = new HashMap<>();
 
     /**
      * Cached veins.
@@ -98,16 +105,26 @@ public class Tattletail extends JavaPlugin {
 
         this.adventure = BukkitAudiences.create(this);
 
-        // Cache block broke alerts by material
-        for (BlockConfiguration blockConfiguration : configurationService.tattletailConfig().blockBreakAlerts()) {
-            for (Material material : blockConfiguration.materials()) {
-                blockBrokenAlerts.put(material, blockConfiguration);
+        // Cache block break alerts by material
+        for (BlockBreakConfiguration blockBreakConfiguration :
+                configurationService.tattletailConfig().blockBreakAlerts()) {
+            for (Material material : blockBreakConfiguration.materials()) {
+                blockBreakAlerts.put(material, blockBreakConfiguration);
+            }
+        }
+
+        // Cache block place alerts by material
+        for (BlockPlaceConfiguration blockPlaceConfiguration :
+                configurationService.tattletailConfig().blockPlaceAlerts()) {
+            for (Material material : blockPlaceConfiguration.materials()) {
+                blockPlaceAlerts.put(material, blockPlaceConfiguration);
             }
         }
 
         if (isEnabled()) {
             // Register listeners
             getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
+            getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
         }
     }
 
@@ -125,8 +142,17 @@ public class Tattletail extends JavaPlugin {
      *
      * @return The block break alerts
      */
-    public Map<Material, BlockConfiguration> blockBrokenAlerts() {
-        return blockBrokenAlerts;
+    public Map<Material, BlockBreakConfiguration> blockBreakAlerts() {
+        return blockBreakAlerts;
+    }
+
+    /**
+     * Get the block place alert configs.
+     *
+     * @return The block place alerts
+     */
+    public Map<Material, BlockPlaceConfiguration> blockPlaceAlerts() {
+        return blockPlaceAlerts;
     }
 
     /**
