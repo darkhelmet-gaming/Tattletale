@@ -27,7 +27,7 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 @ConfigSerializable
-public class BlockConfiguration {
+public class MaterialConfiguration {
     @Comment("The CSS hex color to use for the alert message.")
     private String hexColor;
 
@@ -37,7 +37,7 @@ public class BlockConfiguration {
     /**
      * Empty constructor for serializer.
      */
-    public BlockConfiguration() {}
+    public MaterialConfiguration() {}
 
     /**
      * Constructor.
@@ -45,7 +45,7 @@ public class BlockConfiguration {
      * @param materials The materials
      * @param hexColor The hex color
      */
-    public BlockConfiguration(List<Material> materials, String hexColor) {
+    public MaterialConfiguration(List<Material> materials, String hexColor) {
         this.materials = materials;
         this.hexColor = hexColor;
     }

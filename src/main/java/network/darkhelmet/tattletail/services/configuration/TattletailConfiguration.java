@@ -34,7 +34,10 @@ public class TattletailConfiguration {
     private List<BlockBreakConfiguration> blockBreakAlerts = new ArrayList<>();
 
     @Comment("Configure alerts for block placement.")
-    private List<BlockConfiguration> blockPlaceAlerts = new ArrayList<>();
+    private List<MaterialConfiguration> blockPlaceAlerts = new ArrayList<>();
+
+    @Comment("Configure alerts for emptying buckets.")
+    private List<MaterialConfiguration> bucketEmptyAlerts = new ArrayList<>();
 
     @Comment("Enable plugin debug mode. Produces extra logging to help diagnose issues.")
     private boolean debug = false;
@@ -65,7 +68,9 @@ public class TattletailConfiguration {
 
         blockBreakAlerts.add(new BlockBreakConfiguration(Arrays.asList(Material.NETHER_GOLD_ORE), "#ff7308", 20));
 
-        blockPlaceAlerts.add(new BlockConfiguration(Arrays.asList(Material.TNT, Material.BEDROCK), "#ffffff"));
+        blockPlaceAlerts.add(new MaterialConfiguration(Arrays.asList(Material.TNT, Material.BEDROCK), "#ffffff"));
+
+        bucketEmptyAlerts.add(new MaterialConfiguration(Arrays.asList(Material.LAVA_BUCKET), "#ffffff"));
     }
 
     /**
@@ -82,8 +87,17 @@ public class TattletailConfiguration {
      *
      * @return The block place alerts
      */
-    public List<BlockConfiguration> blockPlaceAlerts() {
+    public List<MaterialConfiguration> blockPlaceAlerts() {
         return blockPlaceAlerts;
+    }
+
+    /**
+     * Get the bucket empty alerts.
+     *
+     * @return The bucket empty alerts
+     */
+    public List<MaterialConfiguration> bucketEmptyAlerts() {
+        return bucketEmptyAlerts;
     }
 
     /**

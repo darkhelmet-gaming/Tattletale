@@ -27,7 +27,7 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 @ConfigSerializable
-public class BlockBreakConfiguration extends BlockConfiguration {
+public class BlockBreakConfiguration extends MaterialConfiguration {
     @Comment("Whether to indicate if users have night vision.")
     private boolean includeNightVision = true;
 

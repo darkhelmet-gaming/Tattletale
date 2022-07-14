@@ -36,16 +36,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
 
-public class BlockPlaceListener implements Listener {
+public class PlayerBucketEmptyListener implements Listener {
     /**
-     * On block place.
+     * On bucket empty.
      *
      * @param event The event
      */
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onBlockPlace(final BlockPlaceEvent event) {
+    public void onBucketEmpty(final PlayerBucketEmptyEvent event) {
         final Player player = event.getPlayer();
 
         // Ignore creative
@@ -53,25 +53,24 @@ public class BlockPlaceListener implements Listener {
             return;
         }
 
-        // Get block alert configuration
+        // Get alert configuration
         MaterialConfiguration materialConfiguration = Tattletail.getInstance()
-            .blockPlaceAlerts().get(event.getBlock().getType());
+            .bucketEmptyAlerts().get(event.getBucket());
         if (materialConfiguration == null) {
             return;
         }
 
         TextColor color = TextColor.fromCSSHexString(materialConfiguration.hexColor());
-        String blockName = event.getBlock().getType().toString().replace("_", " ")
-                .toLowerCase(Locale.ENGLISH).replace("glowing", " ");
+        String bucketName = event.getBucket().toString().replace("_", " ").toLowerCase(Locale.ENGLISH);
 
         // Create alert message
         final TextComponent.Builder component = Component.text().color(color)
             .append(Component.text(player.getDisplayName()))
-            .append(Component.text(" placed "))
-            .append(Component.text(blockName))
+            .append(Component.text(" emptied "))
+            .append(Component.text(bucketName))
             .hoverEvent(
                 HoverEvent.hoverEvent(HoverEvent.Action.SHOW_ITEM,
-                    HoverEvent.ShowItem.of(Key.key(event.getBlock().getType().getKey().toString()), 1)));
+                    HoverEvent.ShowItem.of(Key.key(event.getBucket().getKey().toString()), 1)));
 
         Tattletail.getInstance().adventure()
             .filter(sender -> sender.hasPermission("tattletail.receivealerts")).sendMessage(component.build());

@@ -29,9 +29,10 @@ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
 import network.darkhelmet.tattletail.listeners.BlockBreakListener;
 import network.darkhelmet.tattletail.listeners.BlockPlaceListener;
+import network.darkhelmet.tattletail.listeners.PlayerBucketEmptyListener;
 import network.darkhelmet.tattletail.services.configuration.BlockBreakConfiguration;
-import network.darkhelmet.tattletail.services.configuration.BlockConfiguration;
 import network.darkhelmet.tattletail.services.configuration.ConfigurationService;
+import network.darkhelmet.tattletail.services.configuration.MaterialConfiguration;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -68,7 +69,12 @@ public class Tattletail extends JavaPlugin {
     /**
      * Cache block place alert configs by material.
      */
-    private final Map<Material, BlockConfiguration> blockPlaceAlerts = new HashMap<>();
+    private final Map<Material, MaterialConfiguration> blockPlaceAlerts = new HashMap<>();
+
+    /**
+     * Cache bucket empty alert configs by material.
+     */
+    private final Map<Material, MaterialConfiguration> bucketEmptyAlerts = new HashMap<>();
 
     /**
      * Cached veins.
@@ -114,10 +120,10 @@ public class Tattletail extends JavaPlugin {
         }
 
         // Cache block place alerts by material
-        for (BlockConfiguration blockConfiguration :
+        for (MaterialConfiguration materialConfiguration :
                 configurationService.tattletailConfig().blockPlaceAlerts()) {
-            for (Material material : blockConfiguration.materials()) {
-                blockPlaceAlerts.put(material, blockConfiguration);
+            for (Material material : materialConfiguration.materials()) {
+                blockPlaceAlerts.put(material, materialConfiguration);
             }
         }
 
@@ -125,6 +131,7 @@ public class Tattletail extends JavaPlugin {
             // Register listeners
             getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
             getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
+            getServer().getPluginManager().registerEvents(new PlayerBucketEmptyListener(), this);
         }
     }
 
@@ -151,8 +158,17 @@ public class Tattletail extends JavaPlugin {
      *
      * @return The block place alerts
      */
-    public Map<Material, BlockConfiguration> blockPlaceAlerts() {
+    public Map<Material, MaterialConfiguration> blockPlaceAlerts() {
         return blockPlaceAlerts;
+    }
+
+    /**
+     * Get the bucket empty alert configs.
+     *
+     * @return The bucket empty alert configs
+     */
+    public Map<Material, MaterialConfiguration> bucketEmptyAlerts() {
+        return bucketEmptyAlerts;
     }
 
     /**
