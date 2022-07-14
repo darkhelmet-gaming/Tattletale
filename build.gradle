@@ -47,7 +47,7 @@ shadowJar {
     relocate 'org.spongepowered', 'network.darkhelmet.tattletale.spongepowered'
 
     // Transitive deps
-    relocate 'org.typesafe', 'network.darkhelmet.tattletale.typesafe'
+    relocate 'com.typesafe', 'network.darkhelmet.tattletale.typesafe'
     relocate 'io.leangen', 'network.darkhelmet.tattletale.leangen'
 
     minimize()
