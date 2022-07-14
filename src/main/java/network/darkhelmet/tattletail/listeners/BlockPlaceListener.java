@@ -29,7 +29,7 @@ import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
 
 import network.darkhelmet.tattletail.Tattletail;
-import network.darkhelmet.tattletail.services.configuration.BlockPlaceConfiguration;
+import network.darkhelmet.tattletail.services.configuration.BlockConfiguration;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -54,13 +54,13 @@ public class BlockPlaceListener implements Listener {
         }
 
         // Get block alert configuration
-        BlockPlaceConfiguration blockPlaceConfiguration = Tattletail.getInstance()
+        BlockConfiguration blockConfiguration = Tattletail.getInstance()
             .blockPlaceAlerts().get(event.getBlock().getType());
-        if (blockPlaceConfiguration == null) {
+        if (blockConfiguration == null) {
             return;
         }
 
-        TextColor color = TextColor.fromCSSHexString(blockPlaceConfiguration.hexColor());
+        TextColor color = TextColor.fromCSSHexString(blockConfiguration.hexColor());
         String blockName = event.getBlock().getType().toString().replace("_", " ")
                 .toLowerCase(Locale.ENGLISH).replace("glowing", " ");
 

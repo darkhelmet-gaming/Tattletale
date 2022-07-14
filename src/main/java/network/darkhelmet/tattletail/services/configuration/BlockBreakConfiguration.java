@@ -27,18 +27,12 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 @ConfigSerializable
-public class BlockBreakConfiguration {
-    @Comment("The CSS hex color to use for the alert message.")
-    private String hexColor;
-
+public class BlockBreakConfiguration extends BlockConfiguration {
     @Comment("Whether to indicate if users have night vision.")
     private boolean includeNightVision = true;
 
     @Comment("Set the maximum light level that triggers the alert.")
     private int maxLightLevel = 100;
-
-    @Comment("The materials, choices listed here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html")
-    private List<Material> materials;
 
     @Comment("Limit how many neighboring blocks are scanned.")
     private int maxScanCount;
@@ -59,18 +53,9 @@ public class BlockBreakConfiguration {
      * @param maxScanCount The max scan count
      */
     public BlockBreakConfiguration(List<Material> materials, String hexColor, int maxScanCount) {
-        this.materials = materials;
-        this.hexColor = hexColor;
-        this.maxScanCount = maxScanCount;
-    }
+        super(materials, hexColor);
 
-    /**
-     * Get the hex color.
-     *
-     * @return The hex color
-     */
-    public String hexColor() {
-        return hexColor;
+        this.maxScanCount = maxScanCount;
     }
 
     /**
@@ -89,15 +74,6 @@ public class BlockBreakConfiguration {
      */
     public int maxLightLevel() {
         return maxLightLevel;
-    }
-
-    /**
-     * Get the materials.
-     *
-     * @return The materials
-     */
-    public List<Material> materials() {
-        return materials;
     }
 
     /**

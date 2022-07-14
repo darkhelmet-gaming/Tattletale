@@ -30,7 +30,7 @@ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import network.darkhelmet.tattletail.listeners.BlockBreakListener;
 import network.darkhelmet.tattletail.listeners.BlockPlaceListener;
 import network.darkhelmet.tattletail.services.configuration.BlockBreakConfiguration;
-import network.darkhelmet.tattletail.services.configuration.BlockPlaceConfiguration;
+import network.darkhelmet.tattletail.services.configuration.BlockConfiguration;
 import network.darkhelmet.tattletail.services.configuration.ConfigurationService;
 
 import org.apache.logging.log4j.LogManager;
@@ -68,7 +68,7 @@ public class Tattletail extends JavaPlugin {
     /**
      * Cache block place alert configs by material.
      */
-    private final Map<Material, BlockPlaceConfiguration> blockPlaceAlerts = new HashMap<>();
+    private final Map<Material, BlockConfiguration> blockPlaceAlerts = new HashMap<>();
 
     /**
      * Cached veins.
@@ -114,10 +114,10 @@ public class Tattletail extends JavaPlugin {
         }
 
         // Cache block place alerts by material
-        for (BlockPlaceConfiguration blockPlaceConfiguration :
+        for (BlockConfiguration blockConfiguration :
                 configurationService.tattletailConfig().blockPlaceAlerts()) {
-            for (Material material : blockPlaceConfiguration.materials()) {
-                blockPlaceAlerts.put(material, blockPlaceConfiguration);
+            for (Material material : blockConfiguration.materials()) {
+                blockPlaceAlerts.put(material, blockConfiguration);
             }
         }
 
@@ -151,7 +151,7 @@ public class Tattletail extends JavaPlugin {
      *
      * @return The block place alerts
      */
-    public Map<Material, BlockPlaceConfiguration> blockPlaceAlerts() {
+    public Map<Material, BlockConfiguration> blockPlaceAlerts() {
         return blockPlaceAlerts;
     }
 

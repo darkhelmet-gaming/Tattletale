@@ -34,7 +34,7 @@ public class TattletailConfiguration {
     private List<BlockBreakConfiguration> blockBreakAlerts = new ArrayList<>();
 
     @Comment("Configure alerts for block placement.")
-    private List<BlockPlaceConfiguration> blockPlaceAlerts = new ArrayList<>();
+    private List<BlockConfiguration> blockPlaceAlerts = new ArrayList<>();
 
     @Comment("Enable plugin debug mode. Produces extra logging to help diagnose issues.")
     private boolean debug = false;
@@ -65,7 +65,7 @@ public class TattletailConfiguration {
 
         blockBreakAlerts.add(new BlockBreakConfiguration(Arrays.asList(Material.NETHER_GOLD_ORE), "#ff7308", 20));
 
-        blockPlaceAlerts.add(new BlockPlaceConfiguration(Arrays.asList(Material.TNT), "#ffffff"));
+        blockPlaceAlerts.add(new BlockConfiguration(Arrays.asList(Material.TNT, Material.BEDROCK), "#ffffff"));
     }
 
     /**
@@ -82,7 +82,7 @@ public class TattletailConfiguration {
      *
      * @return The block place alerts
      */
-    public List<BlockPlaceConfiguration> blockPlaceAlerts() {
+    public List<BlockConfiguration> blockPlaceAlerts() {
         return blockPlaceAlerts;
     }
 
