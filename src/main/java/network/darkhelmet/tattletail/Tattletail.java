@@ -237,17 +237,6 @@ public class Tattletail extends JavaPlugin {
     }
 
     /**
-     * Log a debug message to console.
-     *
-     * @param message String
-     */
-    public void debug(String message) {
-        if (configurationService.tattletailConfig().debug()) {
-            logger.info(message);
-        }
-    }
-
-    /**
      * Handle exceptions.
      *
      * @param ex The exception

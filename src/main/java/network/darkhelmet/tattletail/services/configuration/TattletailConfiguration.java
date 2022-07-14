@@ -39,9 +39,6 @@ public class TattletailConfiguration {
     @Comment("Configure alerts for emptying buckets.")
     private List<MaterialConfiguration> bucketEmptyAlerts = new ArrayList<>();
 
-    @Comment("Enable plugin debug mode. Produces extra logging to help diagnose issues.")
-    private boolean debug = false;
-
     @Comment("Do not alert for players in creative.")
     private boolean ignoreCreative = true;
 
@@ -110,15 +107,6 @@ public class TattletailConfiguration {
      */
     public List<MaterialConfiguration> bucketEmptyAlerts() {
         return bucketEmptyAlerts;
-    }
-
-    /**
-     * Get the debug setting.
-     *
-     * @return True if debug enabled.
-     */
-    public boolean debug() {
-        return debug;
     }
 
     /**
