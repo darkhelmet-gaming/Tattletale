@@ -4,7 +4,8 @@ Alerts staff to player actions. A plugin for Spigot/Paper/etc servers, by vivele
 
 An extracted and improved version of Prism v3's alert system.
 
-[Discord](discord)
+- [Discord][discord]
+- [Dev Builds][ci]
 
 ## Features
 
@@ -21,3 +22,4 @@ An extracted and improved version of Prism v3's alert system.
 - `tattletale.bypass` - Do not alert for this player.
 
 [discord]: https://discord.gg/Q6sHDfnMAc
+[ci]: https://ci.darkhelmet.network/job/StellarCrates/
