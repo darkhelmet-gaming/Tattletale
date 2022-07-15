@@ -22,10 +22,6 @@ group = project.property("group")
 version = project.property("version")
 targetCompatibility = sourceCompatibility = JavaVersion.VERSION_17
 
-checkstyle {
-    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
-}
-
 bukkit {
     name = 'tatteltail'
     main = 'network.darkhelmet.tattletale.Tattletale'
