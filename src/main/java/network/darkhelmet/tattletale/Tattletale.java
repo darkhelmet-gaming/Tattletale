@@ -29,6 +29,10 @@ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
+import network.darkhelmet.prism.api.IPrism;
+import network.darkhelmet.prism.api.activities.Activity;
+import network.darkhelmet.prism.api.activities.ActivityQuery;
+import network.darkhelmet.prism.api.activities.IActivity;
 import network.darkhelmet.tattletale.listeners.BlockBreakListener;
 import network.darkhelmet.tattletale.listeners.BlockIgniteListener;
 import network.darkhelmet.tattletale.listeners.BlockPlaceListener;
@@ -40,9 +44,11 @@ import network.darkhelmet.tattletale.services.configuration.TattletaleConfigurat
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Tattletale extends JavaPlugin {
@@ -141,6 +147,23 @@ public class Tattletale extends JavaPlugin {
         }
 
         if (isEnabled()) {
+            Plugin plugin = Bukkit.getPluginManager().getPlugin("Prism");
+            if (plugin != null && plugin.isEnabled() && plugin instanceof IPrism prismApi) {
+                final ActivityQuery query = ActivityQuery.builder()
+                    .actionTypeKey("block-place")
+                    .location(worldUuid, x, y, z)
+                    .build();
+
+                Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+                    try {
+                        List<IActivity> results = prismApi.storageAdapter().queryActivities(query);
+                        // do what you wish with results
+                    } catch (Exception e) {
+                        // handle storage exception
+                    }
+                });
+            }
+
             // Register listeners
             getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
             getServer().getPluginManager().registerEvents(new BlockIgniteListener(), this);
